@@ -2,8 +2,8 @@ name: CI
 
 on:
   # push:
-  #   branches: 
-  #       - "master"
+  #   branches:
+  #       - "main"
 
   # schedule:
   #   - cron: '15 14 * * *'
@@ -31,7 +31,7 @@ jobs:
           - prefix: "ubuntu-latest"
           - prefix: "windows-latest"
 
-    name: runner${{ matrix.config.prefix }}
+    name: runner-${{ matrix.config.prefix }}
     
     runs-on: ${{ matrix.config.prefix }}
 
@@ -44,14 +44,23 @@ jobs:
 
       - uses: browser-actions/setup-chrome@v1
         name: Setup chrome
+        id: setup-chrome
         with:
           chrome-version: 122
 
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: run
+      - name: Get chrome path
+        run: |
+          echo "${{ steps.setup-chrome.outputs.chrome-path }}" > chrome-path.txt
+          echo "update chrome path to ${{ steps.setup-chrome.outputs.chrome-path }}"
+
+      - name: Install requirements
         run: |
           pip install -r requirements.txt
-          echo "${{ steps.setup-chrome.outputs.chrome-path }}" > chrome-path.txt
-          python3 main-2.py
+
+      - name: Run
+        continue-on-error: true
+        run: |
+          python3 -X utf8 main-2.py -pc 10

@@ -11,6 +11,15 @@ from colorama import Fore
 from pystyle import Center, Colors, Colorate
 import os
 import time
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-tu', '--twitch_username', default='zycromerz')
+parser.add_argument('-s1', '--set_160p', default='yes')
+parser.add_argument('-us', '--use_settings', default='yes')
+parser.add_argument('-pc', '--proxy_count', default=10, type=int)
+
+args = parser.parse_args()
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
@@ -98,7 +107,7 @@ def main():
     
     twitch_username, set_160p = load_settings()
 
-    os.system(f"title Kichi779 - Twitch Viewer Bot @kichi#0779 ")
+    # os.system(f"title Kichi779 - Twitch Viewer Bot @kichi#0779 ")
 
     print(Colorate.Vertical(Colors.green_to_cyan, Center.XCenter("""
            
@@ -120,16 +129,16 @@ def main():
     print("")
     
 
-    proxy_servers = ['https://www.blockaway.net', 'https://www.croxyproxy.com', 'https://www.croxyproxy.rocks', 'https://www.croxy.network', 'https://www.croxy.org', 'https://www.youtubeunblocked.live', 'https://www.croxyproxy.net']
+    proxy_servers = ['https://www.blockaway.net', 'https://www.croxyproxy.com', 'https://www.croxyproxy.rocks', 'https://www.croxy.network', 'https://www.croxy.org', 'https://www.youtubeunblocked.live', 'https://www.croxyproxy.net', 'https://proxysite.pro/', 'https://proxysite.site', 'https://proxyium.com']
     def selectRandom(proxy_servers):
         return random.choice(proxy_servers)
 
     proxy_url = selectRandom(proxy_servers)
 
     print(Colors.red, "Proxy servers are randomly selected every time")
-    twitch_username = "zycromerz"
-    set_160p = "yes"
-    use_settings = "yes"
+    twitch_username = args.twitch_username
+    set_160p = args.set_160p
+    use_settings = args.use_settings
     if twitch_username is None or set_160p is None:
         
         twitch_username = input(Colorate.Vertical(Colors.green_to_blue, "Enter your channel name (e.g Kichi779): "))
@@ -146,10 +155,10 @@ def main():
 
             save_settings(twitch_username, set_160p)
         
-    proxy_count = 20
+    proxy_count = args.proxy_count
 
 
-    os.system("cls")
+    # os.system("cls")
     print(Colorate.Vertical(Colors.green_to_cyan, Center.XCenter("""
            
                        ▄█   ▄█▄  ▄█    ▄████████    ▄█    █▄     ▄█  
@@ -197,18 +206,26 @@ def main():
     driver.get(proxy_url)
 
     for i in range(proxy_count):
-        random_proxy_url = selectRandom(proxy_servers)  # Select a random proxy server for this tab
-        driver.execute_script("window.open('" + random_proxy_url + "')")
-        driver.switch_to.window(driver.window_handles[-1])
-        driver.get(random_proxy_url)
+        try:
+            random_proxy_url = selectRandom(proxy_servers)  # Select a random proxy server for this tab
+            driver.execute_script("window.open('" + random_proxy_url + "')")
+            driver.switch_to.window(driver.window_handles[-1])
+            driver.get(random_proxy_url)
 
-
-        text_box = driver.find_element(By.ID, 'url')
-        text_box.send_keys(f'www.twitch.tv/{twitch_username}')
-        text_box.send_keys(Keys.RETURN)
+            if 'proxysite.site' in random_proxy_url or 'proxyium.com' in random_proxy_url:
+                text_box = driver.find_element(By.NAME, 'url')
+            else:
+                text_box = driver.find_element(By.ID, 'url')
+            text_box.send_keys(f'www.twitch.tv/{twitch_username}')
+            text_box.send_keys(Keys.RETURN)
+        except:
+            pass
         time.sleep(10)
 
-    set_stream_quality(driver, set_160p)
+    try:
+        set_stream_quality(driver, set_160p)
+    except
+        pass
 
     input(Colorate.Vertical(Colors.red_to_blue, "Viewers have all been sent. You can press enter to withdraw the views and the program will close."))
     driver.quit()

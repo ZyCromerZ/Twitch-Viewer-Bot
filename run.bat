@@ -1,3 +1,3 @@
 @echo off
 color a
-py main.py
+python main-2.py
