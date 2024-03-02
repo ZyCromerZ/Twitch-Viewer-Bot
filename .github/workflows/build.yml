@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  # push:
+  #   branches: 
+  #       - "master"
+
+  # schedule:
+  #   - cron: '15 14 * * *'
+  workflow_dispatch:
+
+env:
+  # CONFL: ${{ secrets.CONFL }}
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  build:
+
+    defaults:
+      run:
+        shell: bash
+
+    timeout-minutes: 120
+    
+    strategy:
+
+      fail-fast: false
+
+      matrix:
+        config:
+          - prefix: "ubuntu-latest"
+          - prefix: "windows-latest"
+
+    name: runner${{ matrix.config.prefix }}
+    
+    runs-on: ${{ matrix.config.prefix }}
+
+    steps:
+      - uses: actions/setup-python@v4
+        name: Setup python
+        id: python
+        with:
+          python-version: "3.10"
+
+      - uses: browser-actions/setup-chrome@v1
+        name: Setup chrome
+        with:
+          chrome-version: 122
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: run
+        run: |
+          pip install -r requirements.txt
+          echo "${{ steps.setup-chrome.outputs.chrome-path }}" > chrome-path.txt
+          python3 main-2.py
