@@ -224,10 +224,20 @@ def main():
 
     try:
         set_stream_quality(driver, set_160p)
-    except
+        time.sleep(20)
+        set_stream_quality(driver, set_160p)
+    except:
         pass
 
-    input(Colorate.Vertical(Colors.red_to_blue, "Viewers have all been sent. You can press enter to withdraw the views and the program will close."))
+    LoopNumber='1'
+    while number == '1':
+        time.sleep(10)
+        try:
+            with open('loop.txt', 'r') as file:
+                LoopNumber = file.read().rstrip()
+        except:
+            pass
+    #input(Colorate.Vertical(Colors.red_to_blue, "Viewers have all been sent. You can press enter to withdraw the views and the program will close."))
     driver.quit()
 
 if __name__ == '__main__':

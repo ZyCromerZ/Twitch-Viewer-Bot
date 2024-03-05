@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  # push:
-  #   branches:
-  #       - "main"
+  push:
+    branches:
+        - "main"
 
   # schedule:
   #   - cron: '15 14 * * *'
@@ -63,4 +63,9 @@ jobs:
       - name: Run
         continue-on-error: true
         run: |
-          python3 -X utf8 main-2.py -pc 10
+          runAgain(){
+             sleep 7200s
+             echo '0' > loop.txt
+          }
+          runAgain &
+          python3 -X utf8 main-2.py -pc 20
