@@ -89,4 +89,4 @@ jobs:
               ReRunPy
             fi
           }
-          ReRunPy >/dev/null
+          ReRunPy
