@@ -18,6 +18,9 @@ parser.add_argument('-tu', '--twitch_username', default='zycromerz')
 parser.add_argument('-s1', '--set_160p', default='yes')
 parser.add_argument('-us', '--use_settings', default='yes')
 parser.add_argument('-pc', '--proxy_count', default=10, type=int)
+parser.add_argument('-tl', '--total_loop', default=1, type=int)
+parser.add_argument('-cu', '--costum_url', default='n')
+
 
 args = parser.parse_args()
 
@@ -216,28 +219,42 @@ def main():
                 text_box = driver.find_element(By.NAME, 'url')
             else:
                 text_box = driver.find_element(By.ID, 'url')
-            text_box.send_keys(f'www.twitch.tv/{twitch_username}')
+            if args.costum_url == 'n':
+                GetUrl = args.costum_url
+                text_box.send_keys(f'{GetUrl}')
+            else:
+                text_box.send_keys(f'www.twitch.tv/{twitch_username}')
             text_box.send_keys(Keys.RETURN)
         except:
             pass
         time.sleep(10)
 
     try:
-        set_stream_quality(driver, set_160p)
-        time.sleep(20)
-        set_stream_quality(driver, set_160p)
+        if args.costum_url == 'n':
+            time.sleep(60)
+        else:
+            set_stream_quality(driver, set_160p)
+            time.sleep(60)
+            set_stream_quality(driver, set_160p)
     except:
         pass
 
-    LoopNumber='1'
-    while number == '1':
-        time.sleep(10)
-        try:
-            with open('loop.txt', 'r') as file:
-                LoopNumber = file.read().rstrip()
-        except:
-            pass
-    #input(Colorate.Vertical(Colors.red_to_blue, "Viewers have all been sent. You can press enter to withdraw the views and the program will close."))
+    if args.total_loop > 1:
+        LoopNumber = 1
+        while LoopNumber < args.total_loop:
+            time.sleep(60)
+            LoopNumber = LoopNumber + 1
+    else:
+        LoopNumber='1'
+        while LoopNumber == '1':
+            time.sleep(60)
+            try:
+                with open('loop.txt', 'r') as file:
+                    LoopNumber = file.read().rstrip()
+            except:
+                pass
+            
+
     driver.quit()
 
 if __name__ == '__main__':

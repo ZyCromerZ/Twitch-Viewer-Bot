@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches:
-        - "main"
+  # push:
+  #   branches:
+  #       - "main"
 
   # schedule:
   #   - cron: '15 14 * * *'
@@ -29,7 +29,13 @@ jobs:
       matrix:
         config:
           - prefix: "ubuntu-latest"
+            method: 'a'
           - prefix: "windows-latest"
+            method: 'a'
+          - prefix: "ubuntu-latest"
+            method: 'b'
+          - prefix: "windows-latest"
+            method: 'b'
 
     name: runner-${{ matrix.config.prefix }}
     
@@ -60,12 +66,27 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run
+      - name: Run method A
         continue-on-error: true
+        if: matrix.config.method == 'a'
         run: |
+          python3 -X utf8 main-2.py -pc 10
+
+      - name: Run method B
+        continue-on-error: true
+        if: matrix.config.method == 'b'
+        run: |
+          stopRunner="0"
           runAgain(){
              sleep 7200s
              echo '0' > loop.txt
+             stopRunner="1"
           }
           runAgain &
-          python3 -X utf8 main-2.py -pc 20
+          ReRunPy(){
+            python3 -X utf8 main-2.py -pc 10 -tl 5
+            if [[ "$stopRunner" == "0" ]];then
+              ReRunPy
+            fi
+          }
+          ReRunPy >/dev/null
