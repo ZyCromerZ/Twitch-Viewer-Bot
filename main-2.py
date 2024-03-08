@@ -214,39 +214,42 @@ def main():
             driver.execute_script("window.open('" + random_proxy_url + "')")
             driver.switch_to.window(driver.window_handles[-1])
             driver.get(random_proxy_url)
+            time.sleep(10)
 
             if 'proxysite.site' in random_proxy_url or 'proxyium.com' in random_proxy_url:
                 text_box = driver.find_element(By.NAME, 'url')
             else:
                 text_box = driver.find_element(By.ID, 'url')
             if args.costum_url == 'n':
+                text_box.send_keys(f'www.twitch.tv/{twitch_username}')
+            else:
                 GetUrl = args.costum_url
                 text_box.send_keys(f'{GetUrl}')
-            else:
-                text_box.send_keys(f'www.twitch.tv/{twitch_username}')
             text_box.send_keys(Keys.RETURN)
         except:
             pass
-        time.sleep(10)
 
-    try:
-        if args.costum_url == 'n':
-            time.sleep(60)
-        else:
-            set_stream_quality(driver, set_160p)
-            time.sleep(60)
-            set_stream_quality(driver, set_160p)
-    except:
-        pass
+
+    for i in range(4):
+        time.sleep(30)
+        try:
+            if args.costum_url == 'n':
+                set_stream_quality(driver, set_160p)
+            else:
+                time.sleep(30)
+        except:
+            pass
 
     if args.total_loop > 1:
         LoopNumber = 1
         while LoopNumber < args.total_loop:
+            print('loop a')
             time.sleep(60)
             LoopNumber = LoopNumber + 1
     else:
         LoopNumber='1'
         while LoopNumber == '1':
+            print('loop b')
             time.sleep(60)
             try:
                 with open('loop.txt', 'r') as file:
