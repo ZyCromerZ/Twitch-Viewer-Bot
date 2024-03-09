@@ -70,7 +70,7 @@ jobs:
         continue-on-error: true
         if: matrix.config.method == 'a'
         run: |
-          python3 -X utf8 main-2.py -pc 15
+          python3 -X utf8 main-2.py -pc 20
 
       - name: Run method B
         continue-on-error: true
