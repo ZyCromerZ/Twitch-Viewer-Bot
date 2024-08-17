@@ -1,11 +1,11 @@
 ![219774639-6c550f44-ed0c-4dcd-ba09-f87836dcbaa3 (1)](https://user-images.githubusercontent.com/92625816/223582987-a08243f3-ea2e-401c-adc0-8c58731f1d61.jpg)
-ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+‎‎‎‎‏‏‎‏‎‏‎‎‏‎‏‎‏‎‏‎ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ‏‎‏‎[WEBSITE](https://kichi779.com/) ‏‎‏‎‏‎[DISCORD](https://discord.gg/3Wp3amnNr3)
 
 ### No need for a proxy. ⚠️
-### Please leave a star for the project. This project is free and open source. ⭐ You can leave a star from the top right. ⭐
+### Please leave a star for the project. This project is free and open source. ⭐ You can leave a star from the top right. ⭐.
 
 
-This software allows you to send viewers to your Twitch live stream without the need for a proxy. The way it works is through Selenium, which enters proxy sites, types the channel name, and then reduces the stream quality to 160p. This allows you to connect to the live stream as a viewer through a proxy without having to pay for one.
+This software allows you to send viewers to your Twitch live stream without the need for a proxy. The way it works is through Selenium, which enters proxy sites, types the channel name, and then reduces the stream quality to 160p. This allows you to connect to the live stream as a viewer through a proxy without having to pay for one..
 
 - The working logic is simple. croxyproxy is a proxy website that connects to the website you want with proxies, and this code automates the process with Selenium.
 
@@ -48,13 +48,25 @@ pip install -r requirements.txt (Or you can click on install.bat file)
 
 - If the audience delivery takes too long and sends only a few viewers, close the client and reopen it, then repeat the same steps. (Proxy sites can sometimes slow down.)
 
+  # [![kichi779shoppanel](https://github.com/Kichi779/Twitch-Chat-Bot/assets/92625816/e78969b1-80e0-4349-9d0f-872563ba0a14)](https://kichi779.com/)
+  ‎‎‎‎‏‏‎‏‎‏‎‎‏‎‏‎‏‎‏‎ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ‏‎‏‎‏‎[WEBSITE](https://kichi779.com/) ‏‎‏‎‏‎[DISCORD](https://discord.gg/3Wp3amnNr3)
+  ## Boost Your Twitch, YouTube, Instagram, and Spotify Accounts with Our SMM Panel!
+‏‎
+![Animation4](https://github.com/Kichi779/Twitch-Viewer-Bot/assets/92625816/55cde7e4-1579-448e-9fab-a012b7add597)
+
+
+- Twitch Chat TOKENS
+- Twitch Followers & Views: Enhance your Twitch channel with genuine followers and views to increase your visibility and attract more organic growth.
+- YouTube Subscribers, Likes & Views: Boost your YouTube channel with real subscribers, likes, and views to improve your engagement and ranking.
+- Instagram Followers, Likes & Comments: Grow your Instagram profile with authentic followers, likes, and comments to strengthen your online presence and influence.
+- Spotify Plays & Followers: Increase your Spotify plays and followers to get your music heard by a wider audience and climb the charts.
+-  ### AND MORE
+
+
+
 # Stars ⭐
 - Send more viewers and monetize ads / 50 Star ⭐ ✔️ 17.05.2023
 - It automatically lowers the broadcast quality and prevents the audience drop. / 100 Star ⭐⭐⭐ ✔️ 19.08.2023
-
-# [![BANANACAT](https://github.com/Kichi779/Twitch-Chat-Bot/assets/92625816/4e649089-fc37-4b73-ab3c-eb57a6ac90ce)](https://play.google.com/store/apps/details?id=com.Bread.BananaCatEscape)
-
- ### My projects are completely free and I don't provide income from this, if you want to support me, please download and try my game, if you like it, if you give 5 stars, you will make me happy and support me
 
 # ⚠️Legal⚠️
 
