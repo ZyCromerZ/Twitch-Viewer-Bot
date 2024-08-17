@@ -1,5 +1,6 @@
 import requests
 import warnings
+import random
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -20,17 +21,18 @@ args = parser.parse_args()
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 def check_for_updates():
-    try:
-        r = requests.get("https://raw.githubusercontent.com/Kichi779/Twitch-Viewer-Bot/main/version.txt")
-        remote_version = r.content.decode('utf-8').strip()
-        local_version = open('version.txt', 'r').read().strip()
-        if remote_version != local_version:
-            print("A new version is available. Please download the latest version from GitHub.")
-            time.sleep(3)
-            return False
-        return True
-    except:
-        return True
+    # try:
+    #     r = requests.get("https://raw.githubusercontent.com/Kichi779/Twitch-Viewer-Bot/main/version.txt")
+    #     remote_version = r.content.decode('utf-8').strip()
+    #     local_version = open('version.txt', 'r').read().strip()
+    #     if remote_version != local_version:
+    #         print("A new version is available. Please download the latest version from GitHub.")
+    #         time.sleep(3)
+    #         return False
+    #     return True
+    # except:
+    #     return True
+    return True
 
 
 def main():
@@ -44,7 +46,32 @@ def print_announcement():
     except:
         print("Could not retrieve announcement from GitHub.\n")
 
+def set_stream_quality(driver, quality):
+    if quality == "yes":
+        element_xpath = "//div[@data-a-target='player-overlay-click-handler']"
 
+        element = driver.find_element(By.XPATH, element_xpath)
+
+        actions = ActionChains(driver)
+
+        actions.move_to_element(element).perform()
+
+        settings_button = driver.find_element(By.XPATH, "//button[@aria-label='Settings']")
+        settings_button.click()
+
+        wait = WebDriverWait(driver, 10)
+        quality_option = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Quality']")))
+        quality_option.click()
+
+        time.sleep(15)
+
+        quality_levels = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'video-quality-option')]")))
+
+        target_quality = "160p"
+        for level in quality_levels:
+            if target_quality in level.text:
+                level.click()
+                break
 
 def main():
     if not check_for_updates():
@@ -76,23 +103,39 @@ def main():
     print("")
     
 
-    proxy_servers = {
-        1: "https://www.blockaway.net",
-        2: "https://www.croxyproxy.com",
-        3: "https://www.croxyproxy.rocks",
-        4: "https://www.croxy.network",
-        5: "https://www.croxy.org",
-        6: "https://www.youtubeunblocked.live",
-        7: "https://www.croxyproxy.net",
-    }
+    # proxy_servers = {
+    #     1: "https://www.blockaway.net",
+    #     2: "https://www.croxyproxy.com",
+    #     3: "https://www.croxyproxy.rocks",
+    #     4: "https://www.croxy.network",
+    #     5: "https://www.croxy.org",
+    #     6: "https://www.youtubeunblocked.live",
+    #     7: "https://www.croxyproxy.net",
+    # }
 
-    # Selecting proxy server
-    print(Colors.green,"Proxy Server 1 Is Recommended")
-    print(Colorate.Vertical(Colors.green_to_blue,"Please select a proxy server(1,2,3..):"))
-    for i in range(1, 7):
-        print(Colorate.Vertical(Colors.red_to_blue,f"Proxy Server {i}"))
-    proxy_choice = int(input("> "))
-    proxy_url = proxy_servers.get(proxy_choice)
+    # # Selecting proxy server
+    # print(Colors.green,"Proxy Server 1 Is Recommended")
+    # print(Colorate.Vertical(Colors.green_to_blue,"Please select a proxy server(1,2,3..):"))
+    # for i in range(1, 7):
+    #     print(Colorate.Vertical(Colors.red_to_blue,f"Proxy Server {i}"))
+    # proxy_choice = int(input("> "))
+    # proxy_url = proxy_servers.get(proxy_choice)
+
+    proxy_servers = [
+        "https://www.blockaway.net",
+        "https://www.blockaway.net",
+        "https://www.blockaway.net",
+        "https://www.croxyproxy.com",
+        "https://www.croxyproxy.rocks",
+        "https://www.croxy.network",
+        "https://www.croxy.org",
+        "https://www.youtubeunblocked.live",
+        "https://www.croxyproxy.net",
+    ]
+    def selectRandom(proxy_servers):
+        return random.choice(proxy_servers)
+
+    proxy_url = selectRandom(proxy_servers)
 
     twitch_username = args.twitch_username
     proxy_count = args.proxy_count
@@ -153,6 +196,13 @@ def main():
 
     for i in range(4):
         time.sleep(30)
+        try:
+            if args.costum_url == 'n':
+                set_stream_quality(driver, "yes")
+            else:
+                time.sleep(30)
+        except:
+            pass
 
     if args.total_loop > 1:
         LoopNumber = 1
