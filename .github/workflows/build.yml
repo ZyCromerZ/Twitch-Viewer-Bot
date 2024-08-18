@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  # push:
-  #   branches:
-  #       - "main"
+  push:
+    branches:
+        - "main-2"
 
   # schedule:
   #   - cron: '15 14 * * *'
@@ -28,6 +28,14 @@ jobs:
 
       matrix:
         config:
+          - prefix: "ubuntu-latest"
+            method: 'a'
+          - prefix: "windows-latest"
+            method: 'a'
+          - prefix: "ubuntu-latest"
+            method: 'b'
+          - prefix: "windows-latest"
+            method: 'b'
           - prefix: "ubuntu-latest"
             method: 'a'
           - prefix: "windows-latest"
@@ -70,7 +78,7 @@ jobs:
         continue-on-error: true
         if: matrix.config.method == 'a'
         run: |
-          python3 -X utf8 main-2.py -pc 20
+          python3 -X utf8 main-2.py -pc 40
 
       - name: Run method B
         continue-on-error: true
@@ -84,7 +92,7 @@ jobs:
           }
           runAgain &
           ReRunPy(){
-            python3 -X utf8 main-2.py -pc 20 -tl 5
+            python3 -X utf8 main-2.py -pc 40 -tl 5
             if [[ "$stopRunner" == "0" ]];then
               ReRunPy
             fi
