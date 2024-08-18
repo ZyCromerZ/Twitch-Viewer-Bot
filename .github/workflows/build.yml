@@ -36,6 +36,14 @@ jobs:
             method: 'b'
           - prefix: "windows-latest"
             method: 'b'
+          - prefix: "ubuntu-latest"
+            method: 'a'
+          - prefix: "windows-latest"
+            method: 'a'
+          - prefix: "ubuntu-latest"
+            method: 'b'
+          - prefix: "windows-latest"
+            method: 'b'
 
     name: runner-${{ matrix.config.prefix }}
     
