@@ -131,6 +131,9 @@ def main():
         "https://www.croxy.org",
         "https://www.youtubeunblocked.live",
         "https://www.croxyproxy.net",
+        'https://proxysite.pro',
+        'https://proxysite.site',
+        'https://proxyium.com',
     ]
     def selectRandom(proxy_servers):
         return random.choice(proxy_servers)
@@ -186,21 +189,22 @@ def main():
     driver.get(proxy_url)
 
     for i in range(proxy_count):
-        driver.execute_script("window.open('" + proxy_url + "')")
+        random_proxy_url = selectRandom(proxy_servers)  # Select a random proxy server for this tab
+        driver.execute_script("window.open('" + random_proxy_url + "')")
         driver.switch_to.window(driver.window_handles[-1])
-        driver.get(proxy_url)
+        driver.get(random_proxy_url)
 
-        text_box = driver.find_element(By.ID, 'url')
+        if 'proxysite.site' in random_proxy_url or 'proxyium.com' in random_proxy_url:
+            text_box = driver.find_element(By.NAME, 'url')
+        else:
+            text_box = driver.find_element(By.ID, 'url')
         text_box.send_keys(f'www.twitch.tv/{twitch_username}')
         text_box.send_keys(Keys.RETURN)
 
     for i in range(4):
         time.sleep(30)
         try:
-            if args.costum_url == 'n':
-                set_stream_quality(driver, "yes")
-            else:
-                time.sleep(30)
+            set_stream_quality(driver, "yes")
         except:
             pass
 
