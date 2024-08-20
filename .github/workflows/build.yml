@@ -36,14 +36,6 @@ jobs:
             method: 'b'
           - prefix: "windows-latest"
             method: 'b'
-          - prefix: "ubuntu-latest"
-            method: 'a'
-          - prefix: "windows-latest"
-            method: 'a'
-          - prefix: "ubuntu-latest"
-            method: 'b'
-          - prefix: "windows-latest"
-            method: 'b'
 
     name: runner-${{ matrix.config.prefix }}
     
@@ -78,7 +70,7 @@ jobs:
         continue-on-error: true
         if: matrix.config.method == 'a'
         run: |
-          python3 -X utf8 main-2.py -pc 40
+          python3 -X utf8 main-2.py -pc 20
 
       - name: Run method B
         continue-on-error: true
@@ -92,7 +84,7 @@ jobs:
           }
           runAgain &
           ReRunPy(){
-            python3 -X utf8 main-2.py -pc 40 -tl 5
+            python3 -X utf8 main-2.py -pc 20 -tl 5
             if [[ "$stopRunner" == "0" ]];then
               ReRunPy
             fi
