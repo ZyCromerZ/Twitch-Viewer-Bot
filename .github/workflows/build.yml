@@ -78,13 +78,13 @@ jobs:
         run: |
           stopRunner="0"
           runAgain(){
-             sleep 7200s
+             sleep 10800s
              echo '0' > loop.txt
              stopRunner="1"
           }
           runAgain &
           ReRunPy(){
-            python3 -X utf8 main-2.py -pc 40 -tl 5
+            python3 -X utf8 main-2.py -pc 40 -tl 10
             if [[ "$stopRunner" == "0" ]];then
               ReRunPy
             fi
