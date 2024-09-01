@@ -193,6 +193,7 @@ def main():
         driver.execute_script("window.open('" + random_proxy_url + "')")
         driver.switch_to.window(driver.window_handles[-1])
         driver.get(random_proxy_url)
+        time.sleep(10)
 
         if 'proxysite.site' in random_proxy_url or 'proxyium.com' in random_proxy_url:
             text_box = driver.find_element(By.NAME, 'url')
