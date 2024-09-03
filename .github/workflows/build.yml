@@ -52,7 +52,7 @@ jobs:
         name: Setup chrome
         id: setup-chrome
         with:
-          chrome-version: 128
+          chrome-version: 127
 
       - name: Checkout
         uses: actions/checkout@v2
