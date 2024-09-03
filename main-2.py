@@ -202,9 +202,12 @@ def main():
     chrome_options.add_argument("--lang=en")
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--log-level=3')
-    chrome_options.add_argument('--disable-extensions')
+    # chrome_options.add_argument('--disable-extensions')
     chrome_options.add_argument("--mute-audio")
     chrome_options.add_argument('--disable-dev-shm-usage')
+     #ADBLOCK EXT
+    extension_path = 'adblock.crx'
+    chrome_options.add_extension(extension_path)
     driver = webdriver.Chrome(options=chrome_options)
 
     driver.get(proxy_url)
